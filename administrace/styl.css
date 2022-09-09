@@ -1,0 +1,171 @@
+@font-face {
+    font-family: Poppins;
+    src: url(../fonty/Poppins-Regular.ttf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: Poppins;
+    src: url(../fonty/Poppins-ExtraBold.ttf);
+    font-weight: bold;
+}
+
+body {
+    background: #f9f9f9;
+    color: #414042;
+    margin: 0;
+    padding: 100px 0px 0px 0px;
+    box-sizing: border-box;
+    font: 14px "Poppins";
+    min-width: 960px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > header {
+    height: 50px;
+    position: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    top: 0;
+    background: #00386b;
+    color: white;
+    width: 100%;
+    z-index: 1;
+    border-bottom: 2px solid gray;
+}
+
+article {
+    padding: 10px 20px;
+    flex: 1;
+}
+
+article h2 {
+    font-size: 2em;
+}
+
+article h1 {
+    margin: 0;
+    font-size: 2.3em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 4px solid #ef6534;
+}
+
+article h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding: 10px 0;
+    color: #00386b;
+    width: max-content;
+}
+
+article header {
+    height: 100px;
+    background: none;
+}
+
+article section {
+    margin: 0;
+}
+
+article section p {
+    margin-bottom: 1.5em;
+    line-height: 1.8em;
+}
+
+article section a {
+    color: #ef6534;
+}
+
+.dropdownmenu ul, .dropdownmenu li {
+    padding: 0 25px;
+    margin: 0 5px;
+    font-size: 1em;
+    line-height: 4.3em;
+}
+.dropdownmenu ul {
+    background: #00386b;
+    margin: 0;
+    height: 100%;
+    align-items: center;
+    list-style-type: none;
+    display: flex;
+}
+.dropdownmenu li {
+    float: left;
+    position: relative;
+    width:auto;
+}
+.dropdownmenu a {
+    background: #00386b;
+    color: white;
+    display: block flex;
+    padding: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.dropdownmenu li:hover a {
+    background: #f9f9f9;
+    color: #00386b;
+    text-transform: uppercase;
+}
+#submenu {
+    opacity: 0;
+    position: fixed;
+    display: block;
+    visibility: hidden;
+    width: auto;
+    height: auto;
+    background: #f9f9f9;
+    text-transform: none;
+}
+li:hover ul#submenu {
+    opacity: 1;
+    visibility: visible;
+    text-transform: none;
+}
+#submenu li {
+    float: right;
+    width: 100%;
+}
+
+#submenu a {
+    background: #f9f9f9;
+    text-transform: none;
+}
+
+#submenu a:hover {
+    color: red;
+    font-weight: bold;
+}
+
+footer {
+    box-sizing: border-box;
+    text-align: center;
+    height: 100px;
+    color: white;
+    background: #414042;
+    padding: 50px 0 0 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+#zamestnanci td {
+    width: 33%;
+    padding: 10px;
+    vertical-align: top;
+    border: 1px solid gray;
+}
+
+#zamestnanci {
+    border-collapse: collapse;
+    margin-top: 70px;
+    margin-left: 40px;
+}
