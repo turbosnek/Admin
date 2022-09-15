@@ -25,7 +25,6 @@ INSERT INTO  uzivatele (
     heslo,
     admin
 )
-
 VALUES (NULL, 'Snecek', '$2y$10$0vCT.05SrVZ8XrZFbfE9HORw7wwteczWVzUaZTZHvg6V3YTeVFNi2', 1);
 
 /* Vytvoříme tabulku "zamestnanci", pokud neexistuje */

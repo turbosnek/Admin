@@ -38,7 +38,7 @@
      foreach ($zamestnanci as $zamestnanec)
      {
          echo('<tr><td>
-                 <a href="index.php?stranka=detail=' . htmlspecialchars($zamestnanec['zamestnanci_id']) . '">
+                 <a href="index.php?stranka=detail&zamestnanci_id=' . htmlspecialchars($zamestnanec['zamestnanci_id']) . '">
                      ' . htmlspecialchars($zamestnanec['jmeno']) . ' ' . htmlspecialchars($zamestnanec['prijmeni']) .
              '</a></td>');
          $datumNarozeni = date("d.m.Y", strtotime($zamestnanec['datum_narozeni'])); // Převedeme databázové datum na naše datum
@@ -46,3 +46,4 @@
      }
      echo('</table>');
 ?>
+
