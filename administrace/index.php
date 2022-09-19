@@ -46,7 +46,7 @@
                     </li>
                     <li><a href="#">Pracovní pozice</a>
                         <ul id="submenu">
-                            <li><a href="index.php?stranka=vychystavc">Vychystávači</a></li>
+                            <li><a href="index.php?stranka=vychystavac">Vychystávači</a></li>
                             <li><a href="index.php?stranka=retrakar">Retrakáři</a></li>
                             <li><a href="index.php?stranka=prijem">Fyzický příjem</a></li>
                             <li><a href="index.php?stranka=expedice">Expedice</a></li>

@@ -16,7 +16,7 @@
             FROM uzivatele
             WHERE jmeno=?
         ', $_POST['jmeno']);
-        if (!$uzivatel || !password_verify($_POST['heslo'], $uzivatel['heslo'])) // Pokud je zadané špatné jméno nebo heslo, zobrazíme hlášku
+        if (!$uzivatel || !password_verify($_POST['heslo'], $uzivatel['heslo'])) // Pokud nesouhlasí uživatelské jméno s heslem, zobrazíme chybouvou hlášku
             $zprava = 'Neplatné uživatelské jméno nebo heslo';
         else
         {

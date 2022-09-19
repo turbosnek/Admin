@@ -28,8 +28,8 @@
 <?php
      echo('<table id="zamestnanci">');
      echo('<tr>');
-     echo('<td><strong>Jméno</strong></td>');
-     echo('<td><strong>Datum narození</strong></td>');
+     echo('<td><center><strong>Jméno</strong></center></td>');
+     echo('<td><center><strong>Datum narození</strong></center></td>');
      echo('</tr>');
      
      /**

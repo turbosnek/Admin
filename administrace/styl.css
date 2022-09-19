@@ -169,3 +169,15 @@ footer a {
     margin-top: 70px;
     margin-left: 40px;
 }
+
+#editor td {
+    width: 33%;
+    padding: 10px;
+    vertical-align: top;
+}
+
+#editor {
+    border-collapse: collapse;
+    margin-top: 70px;
+    margin-left: 40px;
+}

@@ -13,4 +13,5 @@
 <p><strong>Možná vylepšení pro příště:</STRONG> možnost tisku docházky. Generování výplatních pásek do PDF.
     Vyhledávání zaměstnanců ve výpisu zaměstnanců a v pracovních pozicích.
     Vyhledávání zaměstnance v docházce a ve výplatách.
+    Převedení kódu do OOP případně MVC architektury.
 </p>

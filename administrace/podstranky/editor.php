@@ -12,8 +12,7 @@
         exit();
     }
     
-    $zprava = '';
-    
+        
     /* Načteme zaměstnance z databáze pomocí jeho ID */
     if (isset($_GET['zamestnanci_id']))
     {
@@ -27,70 +26,79 @@
         else
             $zprava = 'Zaměstnanec nebyl nalezen';
     }
+    
+    $datumNarozeni = date("d.m.Y", strtotime($nactenyZamestnanec['datum_narozeni'])); // Převedeme databázové datum na naše datum
+    $datumNastupu = date("d.m.Y", strtotime($nactenyZamestnanec['datum_nastupu'])); // Převedeme databázové datum na naše datum
+    
+    $zprava = '';
+    
+    if ($_POST) // V poli _POST něco je, odeslal se formulář
+    {
+        $datumNarozeni = date("Y-m-d:s", strtotime($_POST['datum_narozeni'])); // Převedeme datum na databázový formát
+        $datumNastupu = date("Y-m-d:s", strtotime($_POST['datum_nastupu'])); // Převedeme datum na databázový formát
+        
+        /* Odešleme formulář do databáze a aktualizujeme údaje */
+        Db::query('
+                UPDATE zamestnanci
+                SET jmeno=?, prijmeni=?, osobni_cislo=?, adresa=?, telefon=?, datum_narozeni=?, datum_nastupu=?, pracovni_pozice=?, hodinova_mzda=?
+                WHERE zamestnanci_id=?
+                ', $_POST['jmeno'], $_POST['prijmeni'], $_POST['osobni_cislo'], $_POST['adresa'],$_POST['telefon'], $datumNarozeni, $datumNastupu, $_POST['pracovni_pozice'], $_POST['hodinova_mzda'], $_POST['zamestnanci_id']);
+        
+        header('Location: index.php?stranka=vypisZamestnancu');
+        exit();
+    }
 ?>
 
 <H1>Aktualizace údajů zaměstnance</H1>
 
-<?php
-    echo ('<center><strong><H2><u>' . htmlspecialchars($nactenyZamestnanec['jmeno']) . ' ' . htmlspecialchars($nactenyZamestnanec['prijmeni']) . '</u></H2></strong></center>');
-?>
+<center><H2><u><?= htmlspecialchars($nactenyZamestnanec['jmeno'] . ' ' . htmlspecialchars($nactenyZamestnanec['prijmeni'])) ?></u></H2></center>
 
 <?php
     if ($zprava)
     {
         echo('<p>' . htmlspecialchars($zprava) . '</p>');
     }
-
-    /**
-     * Pokud je něco špatně vyplněno, nevymaže se nám formulář
-     */
-    $jmeno = $nactenyZamestnanec = isset(($_POST['jmeno'])) ? $_POST['jmeno'] : '';
-    $prijmeni = isset(($_POST['prijmeni'])) ? $_POST['prijmeni'] : '';
-    $osobniCislo = isset(($_POST['osobni_cislo'])) ? $_POST['osobni_cislo'] : '';
-    $adresa = isset(($_POST['adresa'])) ? $_POST['adresa'] : '';
-    $telefon = isset(($_POST['telefon'])) ? $_POST['telefon'] : '';
-    $datumNarozeni = isset(($_POST['datum_narozeni'])) ? $_POST['datum_narozeni'] : '';
-    $datumNastupu = isset(($_POST['datum_nastupu'])) ? $_POST['datum_nastupu'] : '';
-    $pracovniPozice = isset(($_POST['pracovni_pozice'])) ? $_POST['pracovni_pozice'] : '';
-    $hodinovaMzda = isset(($_POST['hodinova_mzda'])) ? $_POST['hodinova_mzda'] : '';
 ?>
 <form method="POST">
-    <table id="zamestnanci">
+    <table id="editor">
+        <tr>
+            <td><input type="hidden" name="zamestnanci_id" value="<?= htmlspecialchars($nactenyZamestnanec['zamestnanci_id']) ?>" /></td>
+        </tr>
         <tr>
             <td>Jméno: </td>
-            <td><input type="text" name="jmeno" value="<?= htmlspecialchars($jmeno) ?>" /></td>
+            <td><input type="text" name="jmeno" value="<?= htmlspecialchars($nactenyZamestnanec['jmeno']) ?>" /></td>
         </tr>
         <tr>
             <td>Příjmení: </td>
-            <td><input type="text" name="prijmeni" value="<?= htmlspecialchars($prijmeni['prijmeni']) ?>" /></td>
+            <td><input type="text" name="prijmeni" value="<?= htmlspecialchars($nactenyZamestnanec['prijmeni']) ?>" /></td>
         </tr>
         <tr>
             <td>Osobní číslo: </td>
-            <td><input type="text" name="osobni_cislo" value="<?= htmlspecialchars($osobniCislo['osobni_cislo']) ?>" /></td>
+            <td><input type="text" name="osobni_cislo" value="<?= htmlspecialchars($nactenyZamestnanec['osobni_cislo']) ?>" /></td>
         </tr>
         <tr>
             <td>Adresa: </td>
-            <td><textarea cols="37" rows="7" name="adresa"><?= htmlspecialchars($adresa['adresa']) ?></textarea></td>
+            <td><textarea cols="37" rows="7" name="adresa"><?= htmlspecialchars($nactenyZamestnanec['adresa']) ?></textarea></td>
         </tr>
         <tr>
             <td>Telefonní číslo: </td>
-            <td><input type="text" name="telefon" value="<?= htmlspecialchars($telefon['telefon']) ?>" /></td>
+            <td><input type="text" name="telefon" value="<?= htmlspecialchars($nactenyZamestnanec['telefon']) ?>" /></td>
         </tr>
         <tr>
             <td>Datum narození: </td>
-            <td><input type="text" name="datum_narozeni" value="<?= htmlspecialchars($datumNarozeni['datum_narozeni']) ?>" /></td>
+            <td><input type="text" name="datum_narozeni" value="<?= htmlspecialchars($datumNarozeni) ?>" /></td>
         </tr>
         <tr>
             <td>Datum nástupu: </td>
-            <td><input type="text" name="datum_nastupu" value="<?= htmlspecialchars($datumNastupu['datum_nastupu']) ?>" /></td>
+            <td><input type="text" name="datum_nastupu" value="<?= htmlspecialchars($datumNastupu) ?>" /></td>
         </tr>
         <tr>
             <td>Pracovní pozice: </td>
-            <td><input type="text" name="pracovni_pozice" value="<?= htmlspecialchars($pracovniPozice['pracovni_pozice']) ?>" /></td>
+            <td><input type="text" name="pracovni_pozice" value="<?= htmlspecialchars($nactenyZamestnanec['pracovni_pozice']) ?>" /></td>
         </tr>
         <tr>
             <td>Hodinová mzda: </td>
-            <td><input type="text" name="hodinova_mzda" value="<?= htmlspecialchars($hodinovaMzda['hodinova_mzda']) ?>" /></td>
+            <td><input type="text" name="hodinova_mzda" value="<?= htmlspecialchars($nactenyZamestnanec['hodinova_mzda']) ?>" /></td>
         </tr>
         <tr>
             <td>
