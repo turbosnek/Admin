@@ -1,6 +1,8 @@
 <?php
     session_start();
     require('../Db.php');
+    require_once ('knihovny/pridatDochazku.php'); // Knihovna s funkcemi pro přidání docházky
+
     Db::connect('localhost', 'zamestnanci_system', 'root', 'root');
 
     if (!isset($_SESSION['uzivatel_id']))
@@ -40,8 +42,9 @@
                     <li><a href="index.php?stranka=domu">Domů</a></li>
                     <li><a href="#">Zaměstnanci</a>
                         <ul id="submenu">
-                            <li><a href="index.php?stranka=vypisZamestnancu">Výpis zaměstnanců</a></li>
-                            <li><a href="index.php?stranka=pridatZamestnance">Přidat zaměstnance</a></li>
+                            <li><a href="index.php?stranka=vypis_zamestnancu">Výpis zaměstnanců</a></li>
+                            <li><a href="index.php?stranka=pridat_zamestnance">Přidat zaměstnance</a></li>
+                            <li><a href="index.php?stranka=pridat_dochazku">Přidat docházku</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Pracovní pozice</a>
@@ -64,7 +67,7 @@
                     $stranka = $_GET['stranka'];
                 else
                     $stranka = 'domu';
-                if (preg_match('/^[a-z0-9A-Z]+$/', $stranka))
+                if (preg_match('/^[a-z0-9A-Z_]+$/', $stranka))
                 {
                     $vlozeno = include('podstranky/' . $stranka . '.php');
                     if (!$vlozeno)

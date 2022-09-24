@@ -44,3 +44,16 @@ CREATE TABLE IF NOT EXISTS zamestnanci (
 
 /* Nastavíme unikátní klíč na "osobni_cislo", aby jsme nemohli mít dvě stejná osobní čísla v databázi */
 ALTER TABLE zamestnanci ADD UNIQUE (osobni_cislo);
+
+/* Vytvoříme tabulku "dochazka", pokud neexistuje */
+CREATE TABLE IF NOT EXISTS dochazka (
+    dochazka_id INT(10) AUTO_INCREMENT,
+    osobni_cislo VARCHAR(10),
+    mesic VARCHAR(10),
+    zacatek VARCHAR(10),
+    den INT(2),
+    konec VARCHAR(10),
+    prestavka VARCHAR(10),
+    produktivita VARCHAR(10),
+    PRIMARY KEY (dochazka_id)
+);
