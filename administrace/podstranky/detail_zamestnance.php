@@ -37,8 +37,8 @@
             $zprava = 'Zaměstnanec nebyl nalezen';
     }
     
-    $datumNarozeni = date("d.m.Y", strtotime($nactenyZamestnanec['datum_narozeni'])); // Převedeme databázové datum na naše datum
-    $datumNastupu = date("d.m.Y", strtotime($nactenyZamestnanec['datum_nastupu'])); // Převedeme databázové datum na naše datum
+    $datumNarozeni = ceskeDatumNarozeni($nactenyZamestnanec); // Převedeme databázové datum na naše datum
+    $datumNastupu = ceskeDatumNastupu($nactenyZamestnanec); // Převedeme databázové datum na naše datum
 ?>
 
 <H1>Detail zaměstnance</H1>
@@ -82,11 +82,8 @@
         <td><strong>Hodinová mzda:</strong></td>
         <td><center><?= htmlspecialchars($nactenyZamestnanec['hodinova_mzda']) ?></center></td>
     </tr>
-    <?php
-        /* Pokud je přihlášenej administrátor, zobrazíme mu možnost editovat a mazat zaměstnance */
-        if (!empty($_SESSION['uzivatel_admin']))
-            echo ('<tr><td><a href="index.php?stranka=editor_zamestnance&zamestnanci_id=' . htmlspecialchars($zamestnanec['zamestnanci_id']) .'">Editovat</a></td>
-                    <td><a href="index.php?stranka=detail_zamestnance&odstranit=' . htmlspecialchars($nactenyZamestnanec['zamestnanci_id']) . '">Odtranit</a></td>
-                        </tr>');
-    ?>
+    <tr>
+        <td><a href="<?= editujZamestnance() . htmlspecialchars($zamestnanec['zamestnanci_id']) ?>">Editovat</a></td>
+        <td><a href="<?= vymazZamestnance() . htmlspecialchars($nactenyZamestnanec['zamestnanci_id']) ?>">Odstranit</a></td>
+    </tr>
 </table>

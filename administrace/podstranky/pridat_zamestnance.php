@@ -16,8 +16,8 @@
     
     if ($_POST) // V poli _POST něco je, odeslal se formulář
     {
-        $datumNarozeni = date("Y-m-d:s", strtotime($_POST['datum_narozeni'])); // Převedeme datum na databázový formát
-        $datumNastupu = date("Y-m-d:s", strtotime($_POST['datum_nastupu'])); // Převedeme datum na databázový formát
+        $datumNarozeni = databazovyFormatNarozeni(); // Převedeme datum na databázový formát
+        $datumNastupu = databazovyFormatNastupu(); // Převedeme datum na databázový formát
         
         /**
          * Zjistíme, jestli už nemáme zaměstnance se zadaným osobním číslem v databázi
@@ -95,11 +95,11 @@
         </tr>
         <tr>
             <td>Datum narození: </td>
-            <td><input type="text" name="datum_narozeni" value="<?= htmlspecialchars($datumNarozeni) ?>" /></td>
+            <td><input type="text" name="datum_narozeni" placeholder="dd.mm.YY" value="<?= htmlspecialchars($datumNarozeni) ?>" /></td>
         </tr>
         <tr>
             <td>Datum nástupu: </td>
-            <td><input type="text" name="datum_nastupu" value="<?= htmlspecialchars($datumNastupu) ?>" /></td>
+            <td><input type="text" name="datum_nastupu" placeholder="dd.mm.YY" value="<?= htmlspecialchars($datumNastupu) ?>" /></td>
         </tr>
         <tr>
             <td>Pracovní pozice: </td>

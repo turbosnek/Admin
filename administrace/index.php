@@ -2,6 +2,8 @@
     session_start();
     require('../Db.php');
     require_once ('knihovny/pridatDochazku.php'); // Knihovna s funkcemi pro přidání docházky
+    require_once ('knihovny/overUzivatele.php'); // Knihovna s funcemi pro ověření admina
+    require_once ('knihovny/prevedDatum.php'); // Knihovna s funkcemi pro převod datumu
 
     Db::connect('localhost', 'zamestnanci_system', 'root', 'root');
 
