@@ -13,21 +13,21 @@
     }
     
     $zprava = '';
-    
+
     if ($_POST) // V poli _POST něco je, odeslal se formulář
     {
-        $datumNarozeni = databazovyFormatNarozeni(); // Převedeme datum na databázový formát
-        $datumNastupu = databazovyFormatNastupu(); // Převedeme datum na databázový formát
-        
+        $datumNarozeni = databazovyFormatNarozeni(); // Převedeme datum na databázový formát pomocí vytvořené funkce
+        $datumNastupu = databazovyFormatNastupu(); // Převedeme datum na databázový formát pomocí vytvořené funkce
+
         /**
          * Zjistíme, jestli už nemáme zaměstnance se zadaným osobním číslem v databázi
          */
         $existuje = Db::querySingle('
-                SELECT COUNT(*)
-                FROM zamestnanci
-                WHERE osobni_cislo=?
-                LIMIT 1
-                ', $_POST['osobni_cislo']);
+                    SELECT COUNT(*)
+                    FROM zamestnanci
+                    WHERE osobni_cislo=?
+                    LIMIT 1
+                    ', $_POST['osobni_cislo']);
         if ($existuje) // Když zaměstnanec se zadaným osobním číslem už existuje, vypíšeme zprávu
             $zprava = 'Zaměstnanec s tímto osobním číslem je už u nás zaměstnán';
         else
@@ -36,13 +36,13 @@
              * Pokud je vše v pořádku, vložíme nového zaměstnance do databáze
              */
             Db::query('
-                    INSERT INTO zamestnanci (jmeno, prijmeni, osobni_cislo,
-                    adresa, telefon, datum_narozeni, datum_nastupu,
-                    pracovni_pozice, hodinova_mzda)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    ', $_POST['jmeno'], $_POST['prijmeni'], $_POST['osobni_cislo'],
-                    $_POST['adresa'], $_POST['telefon'], $datumNarozeni,
-                    $datumNastupu, $_POST['pracovni_pozice'], $_POST['hodinova_mzda']);
+                        INSERT INTO zamestnanci (jmeno, prijmeni, osobni_cislo,
+                        adresa, telefon, datum_narozeni, datum_nastupu,
+                        pracovni_pozice, hodinova_mzda)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ', $_POST['jmeno'], $_POST['prijmeni'], $_POST['osobni_cislo'],
+                $_POST['adresa'], $_POST['telefon'], $datumNarozeni,
+                $datumNastupu, $_POST['pracovni_pozice'], $_POST['hodinova_mzda']);
             header('Location: ../index.php'); // Po odeslání dat do databáze, přesměrujeme na hlavní stránku
             exit();
         }
