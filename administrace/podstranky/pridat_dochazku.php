@@ -12,14 +12,20 @@
         exit();
     }
     
-    /**
-     * Vybereme všechny záznamy z tabulky zamestnanci podle jejich osobního čísla
-     */
-     $zamestnanci = Db::queryAll('
-             SELECT *
-             FROM zamestnanci
-             ORDER BY osobni_cislo
-             ');
+
+    /* Načteme zaměstnance z databáze pomocí jeho osobniho_cisla */
+    if (isset($_GET['osobni_cislo']))
+    {
+        $nactenyZamestnanec = Db::queryOne('
+                    SELECT *
+                    FROM zamestnanci
+                    WHERE osobni_cislo=?
+                ', $_GET['osobni_cislo']);
+        if ($nactenyZamestnanec)
+            $zamestnanec = $nactenyZamestnanec;
+        else
+            $zprava = 'Zaměstnanec nebyl nalezen';
+    }
 
      if ($_POST) // V poli _POST něco je, odeslal se formulář
      {
@@ -34,7 +40,9 @@
 
 ?>
 
-<H1>Docházka zaměstnanců</H1>
+<H1>Přidat docházku zaměstnance</H1>
+
+<center><H2><u><?= htmlspecialchars($nactenyZamestnanec['jmeno']) . ' ' . htmlspecialchars($nactenyZamestnanec['prijmeni']) ?> </u></H2></center>
 
 <form method="POST">
     <table id="zamestnanci">
