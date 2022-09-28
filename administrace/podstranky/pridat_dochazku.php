@@ -30,11 +30,11 @@
      if ($_POST) // V poli _POST něco je, odeslal se formulář
      {
          Db::query('
-            INSERT INTO dochazka (osobni_cislo, mesic, den, zacatek, konec, prestavka, produktivita)
-            VALUES  (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO dochazka (osobni_cislo, rok, mesic, den, zacatek, konec, prestavka, odpracovano, produktivita)
+            VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ', $_POST['zamestnanec_osobni_cislo'], $_POST['rok'], $_POST['mesic'], $_POST['den'], $_POST['zacatek'],
-            $_POST['konec'], $_POST['prestavka'], $_POST['produktivita']);
-         header('Location: ../index.php'); // Po odeslání do databáze přesměrujeme na hlavní stránku
+            $_POST['konec'], $_POST['prestavka'], $_POST['odpracovano'], $_POST['produktivita']);
+         header('Location: ../index.php?stranka=vypis_zamestnancu'); // Po odeslání do databáze přesměrujeme na výpis zaměstnanců
          exit();
      }
 
@@ -47,56 +47,40 @@
 <form method="POST">
     <table id="zamestnanci">
         <tr>
-            <td><strong>Jméno zaměstnance:</strong></td>
-            <td>
-                <select name="zamestnanec_osobni_cislo">
-                    <?= zamestnanci($zamestnanci) ?>
-                </select>
-            </td>
+            <td><strong>Osobní číslo:</strong></td>
+            <td><input type="text" name="zamestnanec_osobni_cislo" value="<?= htmlspecialchars($nactenyZamestnanec['osobni_cislo']) ?>" /></td>
         </tr>
         <tr>
-            <td><strong>Rok:</strong></td>
+            <td><strong>Rok</strong></td>
             <td><input type="text" name="rok" value="<?= date('Y') ?>" /></td>
         </tr>
         <tr>
             <td><strong>Měsíc:</strong></td>
-            <td>
-                <select name="mesic">
-                    <?= mesice() ?>
-                </select>
-            </td>
+            <td><select name="mesic"><?= mesic() ?></select></td>
         </tr>
         <tr>
             <td><strong>Den:</strong></td>
-            <td>
-                <select name="den">
-                    <?= dny() ?>
-                </select>
-            </td>
+            <td><input type="text" name="den" placeholder="dd" /></td>
         </tr>
         <tr>
             <td><strong>Začátek pracovní doby:</strong></td>
-            <td>
-                <input type="text" name="zacatek" />
-            </td>
+            <td><input type="text" name="zacatek" placeholder="hh:mm" /></td>
         </tr>
         <tr>
             <td><strong>Konec pracovní doby:</strong></td>
-            <td>
-                <input type="text" name="konec" />
-            </td>
+            <td><input type="text" name="konec" placeholder="hh:mm" /></td>
         </tr>
         <tr>
             <td><strong>Přestávka:</strong></td>
-            <td>
-                <input type="text" name="prestavka" />
-            </td>
+            <td><input type="text" name="prestavka" /></td>
+        </tr>
+        <tr>
+            <td><strong>Odpracováno:</strong></td>
+            <td><input type="text" name="odpracovano" /></td>
         </tr>
         <tr>
             <td><strong>Produktivita:</strong></td>
-            <td>
-                <input type="text" name="produktivita" />
-            </td>
+            <td><input type="text" name="produktivita" /></td>
         </tr>
         <tr>
             <td><input type="submit" value="Přidat docházku" /></td>

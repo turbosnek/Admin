@@ -49,11 +49,13 @@ ALTER TABLE zamestnanci ADD UNIQUE (osobni_cislo);
 CREATE TABLE IF NOT EXISTS dochazka (
     dochazka_id INT(10) AUTO_INCREMENT,
     osobni_cislo VARCHAR(10),
+    rok INT(4),
     mesic VARCHAR(10),
-    zacatek VARCHAR(10),
     den INT(2),
+    zacatek VARCHAR(10),
     konec VARCHAR(10),
     prestavka VARCHAR(10),
+    odpracovano VARCHAR(10),
     produktivita VARCHAR(10),
     PRIMARY KEY (dochazka_id)
 );

@@ -3,6 +3,7 @@
     require('../Db.php');
     require_once ('knihovny/overUzivatele.php'); // Knihovna s funcemi pro ověření admina
     require_once ('knihovny/prevedDatum.php'); // Knihovna s funkcemi pro převod datumu
+    require_once ('knihovny/pridatDochazku.php'); // Knihovna s funkcemi pro přidání docházky
 
     Db::connect('localhost', 'zamestnanci_system', 'root', 'root');
 
@@ -45,7 +46,6 @@
                         <ul id="submenu">
                             <li><a href="index.php?stranka=vypis_zamestnancu">Výpis zaměstnanců</a></li>
                             <li><a href="index.php?stranka=pridat_zamestnance">Přidat zaměstnance</a></li>
-                            <li><a href="index.php?stranka=pridat_dochazku">Přidat docházku</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Pracovní pozice</a>
