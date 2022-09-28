@@ -181,3 +181,9 @@ footer a {
     margin-top: 70px;
     margin-left: 40px;
 }
+
+.zprava {
+    border: 1px solid #9DC2F8;
+    background: #DBE8F8;
+    padding: 3px;
+}
