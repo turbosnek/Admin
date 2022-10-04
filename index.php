@@ -9,6 +9,8 @@
         exit();
     }
 
+    $zprava = '';
+
     if ($_POST) // V poli _POST něco je, odeslal se formulář
     {
         $uzivatel = Db::queryOne('
@@ -39,7 +41,7 @@
 		<meta name="keywords" content="" /> <!-- Klíčová slova -->
 		<meta name="author" content="" /> <!-- Autor webu -->
 		<link rel="shortcut icon" href="obrazky/ikona.ico" />
-		<link rel="stylesheet" href="styl.css" type="text/css" />
+		<link rel="stylesheet" href="administrace/styl.css" type="text/css" />
 		<title>Přihlášení</title>
 	</head>
 
@@ -47,9 +49,9 @@
         <center><H1>Přílášení do firemního systému</H1></center>
 
         <?php
-            if (isset($zprava)) // Pokud je něco špatně zadáno, zobrazíme chybovou hlášku
+            if ($zprava) // Pokud je něco špatně zadáno, zobrazíme chybovou hlášku
             {
-                echo('<p>' . $zprava . '</p>');
+                echo('<p class="zprava">' . $zprava . '</p>');
             }
         ?>
 

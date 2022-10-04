@@ -1,75 +1,75 @@
 <?php
-    if (!isset($_SESSION['uzivatel_id']))
-    {
-        header('Location: ../index.php'); // Pokud není uživatel přihlášenej, přesměrujeme ho na přihlášení
-        exit();
-    }
+if (!isset($_SESSION['uzivatel_id']))
+{
+    header('Location: ../index.php'); // Pokud není uživatel přihlášenej, přesměrujeme ho na přihlášení
+    exit();
+}
 
-    if (isset($_GET['odhlasit']))
-    {
-        session_destroy();
-        header('Location: ../index.php'); // Po odhlášení přesměrujeme na přihlášení
-        exit();
-    }
+if (isset($_GET['odhlasit']))
+{
+    session_destroy();
+    header('Location: ../index.php'); // Po odhlášení přesměrujeme na přihlášení
+    exit();
+}
 
-    $zprava = '';
+$zprava = '';
 
-    if ($_POST) // V poli _POST něco je, odeslal se formulář
-    {
-        $datumNarozeni = databazovyFormatNarozeni(); // Převedeme datum na databázový formát pomocí vytvořené funkce
-        $datumNastupu = databazovyFormatNastupu(); // Převedeme datum na databázový formát pomocí vytvořené funkce
+if ($_POST) // V poli _POST něco je, odeslal se formulář
+{
+    $datumNarozeni = databazovyFormatNarozeni(); // Převedeme datum na databázový formát pomocí vytvořené funkce
+    $datumNastupu = databazovyFormatNastupu(); // Převedeme datum na databázový formát pomocí vytvořené funkce
 
-        /**
-         * Zjistíme, jestli už nemáme zaměstnance se zadaným osobním číslem v databázi
-         */
-        $existuje = Db::querySingle('
+    /**
+     * Zjistíme, jestli už nemáme zaměstnance se zadaným osobním číslem v databázi
+     */
+    $existuje = Db::querySingle('
                         SELECT COUNT(*)
                         FROM zamestnanci
                         WHERE osobni_cislo=?
                         LIMIT 1
                         ', $_POST['osobni_cislo']);
-        if ($existuje) // Když zaměstnanec se zadaným osobním číslem už existuje, vypíšeme zprávu
-            $zprava = 'Zaměstnanec s tímto osobním číslem je už u nás zaměstnán';
-        else
-        {
-            /**
-             * Pokud je vše v pořádku, vložíme nového zaměstnance do databáze
-             */
-            Db::query('
+    if ($existuje) // Když zaměstnanec se zadaným osobním číslem už existuje, vypíšeme zprávu
+        $zprava = 'Zaměstnanec s tímto osobním číslem je už u nás zaměstnán';
+    else
+    {
+        /**
+         * Pokud je vše v pořádku, vložíme nového zaměstnance do databáze
+         */
+        Db::query('
                             INSERT INTO zamestnanci (jmeno, prijmeni, osobni_cislo,
                             adresa, telefon, datum_narozeni, datum_nastupu,
                             pracovni_pozice, hodinova_mzda)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                             ', $_POST['jmeno'], $_POST['prijmeni'], $_POST['osobni_cislo'],
-                $_POST['adresa'], $_POST['telefon'], $datumNarozeni,
-                $datumNastupu, $_POST['pracovni_pozice'], $_POST['hodinova_mzda']);
-            header('Location: ../index.php?stranka=pridat_zamestnance'); // Po odeslání dat do databáze, přesměrujeme na hlavní stránku
-            exit();
-        }
+            $_POST['adresa'], $_POST['telefon'], $datumNarozeni,
+            $datumNastupu, $_POST['pracovni_pozice'], $_POST['hodinova_mzda']);
+        header('Location: ../index.php?stranka=pridat_zamestnance'); // Po odeslání dat do databáze, přesměrujeme na hlavní stránku
+        exit();
     }
-    ?>
+}
+?>
 
 
-    <H1>Přidání nového zaměstnance</H1>
+<H1>Přidání nového zaměstnance</H1>
 
-    <?php
-    if ($zprava)
-    {
-        echo('<p class="zprava">' . htmlspecialchars($zprava) . '</p>');
-    }
+<?php
+if ($zprava)
+{
+    echo('<p class="zprava">' . htmlspecialchars($zprava) . '</p>');
+}
 
-    /**
-     * Pokud je něco špatně vyplněno, nevymaže se nám formulář
-     */
-    $jmeno = (isset($_POST['jmeno'])) ? $_POST['jmeno'] : '';
-    $prijmeni = (isset($_POST['prijmeni'])) ? $_POST['prijmeni'] : '';
-    $osobniCislo = (isset($_POST['osobni_cislo'])) ? $_POST['osobni_cislo'] : '';
-    $adresa = (isset($_POST['adresa'])) ? $_POST['adresa'] : '';
-    $telefon = (isset($_POST['telefon'])) ? $_POST['telefon'] : '';
-    $datumNarozeni = (isset($_POST['datum_narozeni'])) ? $_POST['datum_narozeni'] : '';
-    $datumNastupu = (isset($_POST['datum_nastupu'])) ? $_POST['datum_nastupu'] : '';
-    $pracovniPozice = (isset($_POST['pracovni_pozice'])) ? $_POST['pracovni_pozice'] : '';
-    $hodinovaMzda = (isset($_POST['hodinova_mzda'])) ? $_POST['hodinova_mzda'] : '';
+/**
+ * Pokud je něco špatně vyplněno, nevymaže se nám formulář
+ */
+$jmeno = (isset($_POST['jmeno'])) ? $_POST['jmeno'] : '';
+$prijmeni = (isset($_POST['prijmeni'])) ? $_POST['prijmeni'] : '';
+$osobniCislo = (isset($_POST['osobni_cislo'])) ? $_POST['osobni_cislo'] : '';
+$adresa = (isset($_POST['adresa'])) ? $_POST['adresa'] : '';
+$telefon = (isset($_POST['telefon'])) ? $_POST['telefon'] : '';
+$datumNarozeni = (isset($_POST['datum_narozeni'])) ? $_POST['datum_narozeni'] : '';
+$datumNastupu = (isset($_POST['datum_nastupu'])) ? $_POST['datum_nastupu'] : '';
+$pracovniPozice = (isset($_POST['pracovni_pozice'])) ? $_POST['pracovni_pozice'] : '';
+$hodinovaMzda = (isset($_POST['hodinova_mzda'])) ? $_POST['hodinova_mzda'] : '';
 ?>
 <form method="POST">
     <table id="zamestnanci">
