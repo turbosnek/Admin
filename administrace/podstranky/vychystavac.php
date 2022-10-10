@@ -38,7 +38,7 @@
          foreach ($zamestnanci as $zamestnanec)
          {
              echo('<tr><td><center>
-                     <a href="index.php?stranka=detail&zamestnanci_id=' . htmlspecialchars($zamestnanec['zamestnanci_id']) . '">
+                     <a href="index.php?stranka=detail_zamestnance&zamestnanci_id=' . htmlspecialchars($zamestnanec['zamestnanci_id']) . '">
                          ' . htmlspecialchars($zamestnanec['jmeno']) . ' ' . htmlspecialchars($zamestnanec['prijmeni']) .
                  '</a></center></td></tr>');
          }

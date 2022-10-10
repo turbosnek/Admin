@@ -43,8 +43,8 @@
                         ', $_POST['jmeno'], $_POST['prijmeni'], $_POST['osobni_cislo'],
                 $_POST['adresa'], $_POST['telefon'], $datumNarozeni,
                 $datumNastupu, $_POST['pracovni_pozice'], $_POST['hodinova_mzda']);
-            $zprava = 'Zaměstnanec s tímto osobním číslem je už u nás zaměstnán';
-            header('Location: ../index.php'); // Po odeslání dat do databáze, přesměrujeme na hlavní stránku
+            $zprava = 'Zaměstnanec byl přidán do databáze.';
+            header('Location: ../index.php?stranka=pridat_zamestnance'); // Po odeslání dat do databáze, přesměrujeme na hlavní stránku
             exit();
         }
     }
