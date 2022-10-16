@@ -20,10 +20,6 @@
                 FROM zamestnanci
                 WHERE osobni_cislo=?
             ', $_GET['osobni_cislo']);
-        if ($nactenyZamestnanec)
-            $zamestnanec = $nactenyZamestnanec;
-        else
-            $zprava = 'Zaměstnanec nebyl nalezen';
     }
 ?>
 
