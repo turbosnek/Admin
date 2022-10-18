@@ -43,6 +43,6 @@
 <?php
     foreach ($nactenaDochazka as $dochazka)
     {
-        echo (htmlspecialchars($dochazka['mesic']) . '<br />');
+        echo ('<a href="index.php?stranka=dochazka_mesic&osobni_cislo=' . htmlspecialchars($nactenyZamestnanec['osobni_cislo']) . '&rok=' . htmlspecialchars($nactenaDochazkaRok['rok']) . '&mesic=' . htmlspecialchars($dochazka['mesic']) . '">' . htmlspecialchars($dochazka['mesic']) . '<br /></a>');
     }
 ?>
