@@ -20,9 +20,22 @@
                 FROM zamestnanci
                 WHERE osobni_cislo=?
             ', $_GET['osobni_cislo']);
+
+        $nactenaDochazka = Db::queryAll('
+            SELECT DISTINCT rok
+            FROM dochazka
+            WHERE osobni_cislo=?
+        ', $_GET['osobni_cislo']);
     }
 ?>
 
 <H1>Docházka zaměstnance</H1>
 
 <center><H2><u><?= htmlspecialchars($nactenyZamestnanec['jmeno']) . ' ' . htmlspecialchars($nactenyZamestnanec['prijmeni']) ?> </u></H2></center>
+
+<?php
+    foreach ($nactenaDochazka as $dochazka)
+    {
+        echo ('<a href="index.php?stranka=dochazka_rok&osobni_cislo=' . htmlspecialchars($nactenyZamestnanec['osobni_cislo']) . '&rok=' . htmlspecialchars($dochazka['rok']) . '">' . htmlspecialchars($dochazka['rok']) . '<br /></a>');
+    }
+?>
